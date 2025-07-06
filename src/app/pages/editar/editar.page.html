@@ -1,0 +1,23 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title color="medium">Editar nota</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="eliminarModal()"><p>Cerrar</p></ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-text-center">
+  <ion-card color="white">
+    <form [formGroup]="formulario">
+      <ion-input
+        type="text"
+        formControlName="nota"
+        placeholder="Ingrese nota"
+        errorText="Error en la nota"
+      ></ion-input>
+
+      <ion-button (click)="editDocument(id)">Editar</ion-button>
+    </form>
+  </ion-card>
+</ion-content>

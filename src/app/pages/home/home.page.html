@@ -1,0 +1,17 @@
+<ion-header class="ion-text-center">
+  <ion-toolbar>
+    <ion-list id="container">
+      <ion-item lines="none">
+        <p *ngIf=authService.currentUser>Bienvenido!</p>
+        <h1 style="color:rgb(132, 130, 251)" *ngIf=authService.currentUser>{{authService.currentUser.email}}!</h1>
+        <ion-button class="ion-margin" slot="end" color="tertiary" (click)="cerrarSesion()">Cerrar Sesión</ion-button>
+      </ion-item>
+    </ion-list>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-text-center">
+  <p style="color:rgb(140, 140, 140);">Lista de Notas</p>
+  <app-lista>
+  </app-lista>
+</ion-content>

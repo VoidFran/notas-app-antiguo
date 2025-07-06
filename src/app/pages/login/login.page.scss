@@ -1,0 +1,33 @@
+#container {
+  text-align: center;
+
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+#container strong {
+  font-size: 20px;
+  line-height: 26px;
+}
+
+#container p {
+  font-size: 16px;
+  line-height: 22px;
+
+  color: #8c8c8c;
+
+  margin: 0;
+}
+
+#container a {
+  text-decoration: none;
+}
+
+.hover-effect:hover {
+  color: #0163aa; /* Cambia el color del texto cuando se pasa el mouse */
+  cursor: pointer; /* Cambia el cursor para que indique que es interactivo */
+  transition: background-color 0.3s ease, color 0.3s ease; /* Agrega una transición suave */
+}

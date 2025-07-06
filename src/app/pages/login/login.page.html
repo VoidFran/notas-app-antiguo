@@ -1,0 +1,48 @@
+<ion-content [fullscreen]="true">
+  <div id="container">
+    <p color="medium">Inicio de sesión</p>
+
+    <ion-card>
+      <form [formGroup]="formulario">
+        <ion-item lines="none" class="ion-margin-horizontal ion-margin-top">
+
+          <ion-button slot="start" fill="clear" color="white">
+            <ion-icon slot="icon-only" [name]="'mail-outline'"></ion-icon>
+          </ion-button>
+
+          <ion-input
+            type="text"
+            formControlName="email"
+            placeholder="Ingrese el email"
+            errorText="Error en el email"
+          ></ion-input>
+        </ion-item>
+
+        <ion-item lines="none" class="ion-margin-horizontal ion-margin-top">
+          <ion-button slot="start" fill="clear" color="white">
+            <ion-icon slot="icon-only" [name]="'key-outline'"></ion-icon>
+          </ion-button>
+
+          <ion-input
+            [type]="isPwd ? 'text' : 'password'"
+            formControlName="contraseña"
+            placeholder="Ingrese contraseña"
+            errorText="Error en la contraseña"
+          ></ion-input>
+          
+          <ion-button slot="end" fill="clear" color="danger" (click)="togglePwd()">
+            <ion-icon slot="icon-only" [name]="isPwd ? 'eye-outline' : 'eye-off-outline'"></ion-icon>
+          </ion-button>
+        </ion-item>
+        <ion-item lines="none" class="ion-margin-horizontal">
+          <ion-buttons slot="end">
+            <ion-button class="hover-effect" (click)="abrirModalRestaurar()">¿Olvidaste tu contraseña?</ion-button>
+          </ion-buttons>
+        </ion-item>
+
+        <ion-button class="ion-margin submit" (click)="onLogin()">Iniciar sesión</ion-button>
+        <ion-button class="ion-margin submit" (click)="abrirModalRegistro()">Crear cuenta</ion-button>
+      </form>
+    </ion-card>
+  </div>
+</ion-content>

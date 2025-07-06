@@ -1,0 +1,23 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title color="medium">Restaurar contraseña</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="eliminarModal()"><p>Cerrar</p></ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-text-center">
+  <ion-card color="white">
+    <form [formGroup]="formulario">
+      <ion-input
+        type="text"
+        formControlName="email"
+        placeholder="Ingrese email"
+        errorText="Error en el email"
+      ></ion-input>
+
+      <ion-button (click)="Enviar()">Restaurar</ion-button>
+    </form>
+  </ion-card>
+</ion-content>
