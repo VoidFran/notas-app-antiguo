@@ -66,9 +66,6 @@ export class ListaComponent  implements OnInit {
         text: 'Cancelar',
         role: 'cancel',
         cssClass: 'secondary',
-        handler: () => {
-          console.log('Cancelado');
-        }
       }, {
         text: 'Eliminar',
         handler: () => {

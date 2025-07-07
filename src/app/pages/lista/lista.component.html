@@ -1,8 +1,9 @@
 <ion-list *ngIf="items.length !== 0">
   <ion-item *ngFor="let item of items">
     <p class="ion-margin">{{ item.nota }}</p>
-    <ion-button class="ion-margin" slot="end" color="secondary" fill="clear" (click)="editItem(item.id)">Editar</ion-button>
-    <ion-button class="ion-margin" slot="end" color="danger" fill="clear" (click)="eliminarElemento(item.id)">Borrar</ion-button>
+    <ion-button class="ion-margin" slot="end" color="secondary" fill="clear" (click)="editItem(item.id)"><ion-icon name="pencil-outline"></ion-icon></ion-button>
+    <ion-button class="ion-margin" slot="end" color="danger" fill="clear" (click)="eliminarElemento(item.id)"><ion-icon name="close-outline"></ion-icon></ion-button>
+    
   </ion-item>
   
 </ion-list>

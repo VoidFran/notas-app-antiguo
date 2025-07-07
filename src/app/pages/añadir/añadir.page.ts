@@ -24,7 +24,7 @@ export class AñadirPage {
 
   initForm() {
     this.formulario = new FormGroup({
-      nota: new FormControl("", [Validators.required, Validators.minLength(4)])
+      nota: new FormControl("", [Validators.required, Validators.minLength(1)])
     })
   }
 
