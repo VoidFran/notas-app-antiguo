@@ -6,6 +6,7 @@ import { IonHeader, IonToolbar, IonTitle, IonContent, IonInput, IonCard, IonButt
 import { RegistroPage } from '../registro/registro.page';
 import { ModalController } from '@ionic/angular';
 import { addIcons } from "ionicons";
+import { FirebaseService } from 'src/app/services/firebase.service';
 import { RestaurarPage } from '../restaurar/restaurar.page';
 import { AuthService } from 'src/app/services/auth.service';
 
@@ -21,9 +22,10 @@ export class LoginPage {
   formulario!: FormGroup
   isPwd = false
   
-  constructor(private authService: AuthService, private router: Router, private modalController: ModalController, private registro: RegistroPage) {
+  constructor(private authService: AuthService, private firebaseService: FirebaseService, private router: Router, private modalController: ModalController, private registro: RegistroPage) {
     this.initForm()
-    addIcons({});  
+
+    addIcons({})
   }
   
   initForm() {
@@ -33,45 +35,51 @@ export class LoginPage {
     })
   }
   
-  // Crea el modal
+  // Crea un modal
   async abrirModalRegistro() {
     const modal = await this.modalController.create({
       component: RegistroPage,
       cssClass: 'registro.page'
-    });
-    return await modal.present();
+    })
+    return await modal.present()
   }
   
-  // Crea el modal
+  // Crea un modal
   async abrirModalRestaurar() {
     const modal = await this.modalController.create({
       component: RestaurarPage,
       cssClass: 'restaurar.page'
-    });
-    return await modal.present();
+    })
+    return await modal.present()
   }
 
-  // Elimina el modal
+  // Elimina un modal
   eliminarModal() {
-    this.registro.eliminarModal();
+    this.registro.eliminarModal()
   }
 
-  // Hace visible o invisible el icono
+  // Cambia un icono
   togglePwd() {
     this.isPwd = !this.isPwd
   }
 
-  // Inicia sesión
+  // Inicia sesion
   async onLogin() {
     const email = this.formulario.get("email")?.value
+    const contraseña = this.formulario.get("contraseña")?.value
+
+    // Guardar token
 
     try {
+      const user = await this.firebaseService.login(email, contraseña)
+      
       this.authService.toast("Inicio de sesión exitoso!", "success")
       this.authService.login(email)
       this.router.navigate(["/home"])
     }
     catch (error) {
       this.authService.toast("Error de inicio de sesion. Por favor verifique sus credenciales.", "danger")
+      console.error(error)
     }
   }
 }

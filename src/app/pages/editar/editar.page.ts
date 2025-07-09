@@ -17,16 +17,15 @@ import { AuthService } from 'src/app/services/auth.service';
 
 export class EditarPage {
   formulario!: FormGroup
-  //id: any
-  @Input() id!: string; // Recibe el valor pasado
-  item: any; // Almacenar la colección
+  @Input() id!: string // Recibe el valor pasado
+  items: any // Almacenar la colección
 
   constructor(private authService: AuthService, private firebaseService: FirebaseService, private modalController: ModalController) {
     this.initForm()
   }
 
   ngOnInit() {
-    this.obtenerNotas()
+    this.buscarNotasId()
   }
   
   initForm() {
@@ -34,36 +33,37 @@ export class EditarPage {
       nota: new FormControl("a", [Validators.required, Validators.minLength(4)])
     })
   }
-
-  async obtenerNotas() {
-    // Obtener todos los documentos de la colección "items"
-    await this.firebaseService.getDocument("notas", this.id).subscribe(data => {
-      this.item = data;
-      this.formulario.get('nota')?.setValue(this.item["nota"]);
-    });
+  // Busca los documentos ligados al usuario
+  async buscarNotasId() {
+    this.firebaseService.buscarDocumento('notas', 'id_usuario', this.getUserId())
+    .subscribe((data) => {
+      this.items = data
+    })
   }
 
+  // Edita un documento
   async editDocument(id: any) {
     const nota = {
       nota: this.formulario.get("nota")?.value,
       id_usuario: this.getUserId(),
-    };
+    }
   
     if (this.formulario.invalid) {
       this.authService.toast("Documento vacio.", "danger")
-      return;
+      return
     }
     this.authService.toast("Documento editado!", "success")
     this.eliminarModal()
     await this.firebaseService.updateItem("notas", id, nota)
   }
 
+  // Elimina un modal
   async eliminarModal() {
-    await this.modalController.dismiss();
+    await this.modalController.dismiss()
   }
 
+  // Busca el usuario autenticado
   getUserId(): string | null {
-    // Obtener el usuario autenticado
     return this.authService.currentUser ? this.authService.currentUser.uid : null;
   }
 }

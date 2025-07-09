@@ -12,15 +12,21 @@ export class HomePage {
   constructor(public authService: AuthService, private router: Router) {}
 
   ngOnInit() {
-    this.authService.isLoggedIn().then(isLogged => {
-      if (isLogged) {
-        this.router.navigate(['/home']);
-      } else {
-        this.router.navigate(['/login']); // Redirigir al login si no está autenticado
-      }
-    });
+    this.autenticar()
   }
 
+  // Verifica si el usuario esta autenticado
+  autenticar() {
+    this.authService.isLoggedIn().then(isLogged => {
+      if (isLogged) {
+        this.router.navigate(['/home'])
+      } else {
+        this.router.navigate(['/login'])
+      }
+    })
+  }
+
+  // Cierra sesion
   cerrarSesion() {
     this.authService.logout()
     this.router.navigate(["/login"])

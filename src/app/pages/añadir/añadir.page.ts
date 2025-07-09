@@ -28,27 +28,29 @@ export class AñadirPage {
     })
   }
 
+  // Añade un documento
   async addDocument() {
     const nota = {
       nota: this.formulario.get("nota")?.value,
       id_usuario: this.getUserId(),
-    };
+    }
 
     if (this.formulario.invalid) {
       this.authService.toast("Documento vacio.", "danger")
-      return;
+      return
     }
     this.authService.toast("Documento añadido!", "success")
     this.eliminarModal()
     this.firebaseService.addItem('notas', nota)
   }
 
+  // Elimina un modal
   async eliminarModal() {
-    await this.modalController.dismiss();
+    await this.modalController.dismiss()
   }
 
+  // Busca el usuario autenticado
   getUserId(): string | null {
-    // Obtener el usuario autenticado
-    return this.authService.currentUser ? this.authService.currentUser.uid : null;
+    return this.authService.currentUser ? this.authService.currentUser.uid : null
   }
 }

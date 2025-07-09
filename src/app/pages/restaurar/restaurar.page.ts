@@ -28,6 +28,7 @@ export class RestaurarPage {
     })
   }
 
+  // Envia el formulario
   Enviar() {
     const email = this.formulario.get("email")?.value
     
@@ -36,6 +37,7 @@ export class RestaurarPage {
     this.eliminarModal()
   }
 
+  // Elimina el modal
   async eliminarModal() {
     await this.modalController.dismiss()
   }

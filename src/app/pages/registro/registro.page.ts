@@ -29,6 +29,7 @@ export class RegistroPage {
     })
   }
 
+  // Envia el formulario
   Enviar() {
     const email = this.formulario.get("email")?.value
     const contraseña = this.formulario.get("contraseña")?.value
@@ -38,6 +39,7 @@ export class RegistroPage {
     this.eliminarModal()
   }
 
+  // Elimina el modal
   async eliminarModal() {
     await this.modalController.dismiss()
   }
