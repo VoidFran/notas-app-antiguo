@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
-import { AuthService } from 'src/app/services/auth.service';
-import { Router } from '@angular/router';
+import { StatusBar, Style } from '@capacitor/status-bar';
 
 @Component({
   selector: 'app-root',
@@ -9,6 +8,14 @@ import { Router } from '@angular/router';
 })
 
 export class AppComponent {
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor() {
+    document.body.classList.add('dark') // Fuerza modo oscuro
+    this.configureStatusBar()
+  }
 
+  async configureStatusBar() {
+    await StatusBar.setStyle({ style: Style.Dark }) // o .Dark
+    await StatusBar.setBackgroundColor({ color: '#4d8dff' }) // o el color que combine con tu header
+    await StatusBar.show() // asegurate que se muestre correctamente
+  }
 }

@@ -24,8 +24,6 @@ export class LoginPage {
   
   constructor(private authService: AuthService, private firebaseService: FirebaseService, private router: Router, private modalController: ModalController, private registro: RegistroPage) {
     this.initForm()
-
-    addIcons({})
   }
   
   initForm() {
@@ -68,18 +66,14 @@ export class LoginPage {
     const email = this.formulario.get("email")?.value
     const contraseña = this.formulario.get("contraseña")?.value
 
-    // Guardar token
-
     try {
-      const user = await this.firebaseService.login(email, contraseña)
-      
+      await this.firebaseService.login(email, contraseña)
       this.authService.toast("Inicio de sesión exitoso!", "success")
       this.authService.login(email)
       this.router.navigate(["/home"])
     }
     catch (error) {
       this.authService.toast("Error de inicio de sesion. Por favor verifique sus credenciales.", "danger")
-      console.error(error)
     }
   }
 }

@@ -24,12 +24,12 @@ export class RestaurarPage {
 
   initForm() {
     this.formulario = new FormGroup({
-      email: new FormControl("fran@gmail.com", [Validators.required, Validators.minLength(4)]),
+      email: new FormControl("franciscof2menosf1@gmail.com", [Validators.required, Validators.minLength(4)]),
     })
   }
 
   // Envia el formulario
-  Enviar() {
+  enviar() {
     const email = this.formulario.get("email")?.value
     
     this.firebaseService.restaurarContraseña(email)

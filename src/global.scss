@@ -36,18 +36,6 @@
 /* @import "@ionic/angular/css/palettes/dark.class.css"; */
 @import "@ionic/angular/css/palettes/dark.system.css";
 
-ion-item {
-  color: ghostwhite;
-}
-
-ion-card {
-  color: ghostwhite;
-}
-
-ion-input {
-  color: ghostwhite;
-}
-
-p {
-  color: ghostwhite;
+ion-header {
+  padding-top: env(safe-area-inset-top);
 }

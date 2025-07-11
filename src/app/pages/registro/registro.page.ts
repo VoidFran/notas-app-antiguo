@@ -24,19 +24,25 @@ export class RegistroPage {
 
   initForm() {
     this.formulario = new FormGroup({
-      email: new FormControl("francisco_gearfried@outlook.com", [Validators.required, Validators.minLength(4)]),
-      contraseña: new FormControl("francisco2100", [Validators.required, Validators.minLength(4)]),
+      email: new FormControl("franciscof2menosf1@gmail.com", [Validators.required, Validators.minLength(4)]),
+      contraseña: new FormControl("francisco", [Validators.required, Validators.minLength(4)]),
     })
   }
 
   // Envia el formulario
-  Enviar() {
+  async enviar() {
     const email = this.formulario.get("email")?.value
     const contraseña = this.formulario.get("contraseña")?.value
-    
-    this.firebaseService.register(email, contraseña)
-    this.authService.toast("Usuario registrado!", "success")
-    this.eliminarModal()
+  
+    try {
+      await this.firebaseService.register(email, contraseña)
+      this.authService.toast("Usuario registrado!", "success")
+      this.authService.login(email)
+      this.eliminarModal()
+    }
+    catch (error) {
+      this.authService.toast("Error de registro. Por favor verifique sus credenciales.", "danger")
+    }
   }
 
   // Elimina el modal

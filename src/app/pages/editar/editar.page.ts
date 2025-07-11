@@ -18,7 +18,6 @@ import { AuthService } from 'src/app/services/auth.service';
 export class EditarPage {
   formulario!: FormGroup
   @Input() id!: string // Recibe el valor pasado
-  items: any // Almacenar la colección
 
   constructor(private authService: AuthService, private firebaseService: FirebaseService, private modalController: ModalController) {
     this.initForm()
@@ -30,14 +29,17 @@ export class EditarPage {
   
   initForm() {
     this.formulario = new FormGroup({
-      nota: new FormControl("a", [Validators.required, Validators.minLength(4)])
+      nota: new FormControl("", [Validators.required, Validators.minLength(1)])
     })
   }
-  // Busca los documentos ligados al usuario
+
+  // Busca el documento para editar
   async buscarNotasId() {
-    this.firebaseService.buscarDocumento('notas', 'id_usuario', this.getUserId())
+    this.firebaseService.getDocument('notas', this.id)
     .subscribe((data) => {
-      this.items = data
+      this.formulario.setValue({
+        nota: data.nota
+      })
     })
   }
 

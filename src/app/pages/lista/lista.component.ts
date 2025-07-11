@@ -20,24 +20,19 @@ export class ListaComponent  implements OnInit {
   constructor(private authService: AuthService, private firebaseService: FirebaseService, private modalController: ModalController, private añadir: AñadirPage, private editar: EditarPage, private alertController: AlertController) { }
 
   async ngOnInit() {
-    this.buscarNotasId()
-  }
-
-  // Busca el usuario autenticado
-  getUserId(): string | null {
-    return this.authService.currentUser ? this.authService.currentUser.uid : null
+    await this.buscarNotasId()
   }
   
   // Busca los documentos ligados al usuario
   async buscarNotasId() {
-    this.firebaseService.buscarDocumento('notas', 'id_usuario', this.getUserId())
+    this.firebaseService.getDocumentId('notas', 'id_usuario', this.getUserId())
     .subscribe((data) => {
       this.items = data
     })
   }
 
   // Edita un documento
-  async editItem(id: any) {
+  async editarNota(id: any) {
     const modal = await this.modalController.create({
       component: EditarPage,
       cssClass: 'editar.page',
@@ -49,8 +44,8 @@ export class ListaComponent  implements OnInit {
   }
   
   // Elimina un documento
-  async eliminarElemento(id: any) {
-  const alert = await this.alertController.create({
+  async eliminarNota(id: any) {
+  const alerta = await this.alertController.create({
     header: '¿Estás seguro?',
     message: 'Esta acción eliminará el dato permanentemente.',
     buttons: [
@@ -67,7 +62,7 @@ export class ListaComponent  implements OnInit {
       }
     ]
   })
-  await alert.present()
+  await alerta.present()
 }
 
   // Crea un modal
@@ -82,5 +77,10 @@ export class ListaComponent  implements OnInit {
   // Elimina un modal
   eliminarModal() {
     this.añadir.eliminarModal()
+  }
+
+  // Busca el usuario autenticado
+  getUserId(): string | null {
+    return this.authService.currentUser ? this.authService.currentUser.uid : null
   }
 }

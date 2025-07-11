@@ -19,8 +19,13 @@ export class FirebaseService {
     return this.firestore.collection(collectionName).valueChanges({ idField: 'id' })
   }
 
+  // Obtener un documento específico por ID
+  getDocument(collectionName: string, usuarioId: string): Observable<any> {
+    return this.firestore.collection(collectionName).doc(usuarioId).valueChanges();
+  }
+  
   // Busca los documentos ligado al usuario
-  buscarDocumento(coleccion: string, campo: string, valor: any) {
+  getDocumentId(coleccion: string, campo: string, valor: any) {
     return this.firestore
       .collection(coleccion, ref => ref.where(campo, '==', valor))
       .valueChanges({ idField: 'id' })
