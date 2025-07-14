@@ -30,5 +30,6 @@ export class HomePage {
   cerrarSesion() {
     this.authService.logout()
     this.router.navigate(["/login"])
+    this.authService.toast("Sesión cerrada!", "success")
   }
 }

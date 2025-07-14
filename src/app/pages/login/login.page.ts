@@ -5,7 +5,6 @@ import { Router } from '@angular/router';
 import { IonHeader, IonToolbar, IonTitle, IonContent, IonInput, IonCard, IonButton, IonIcon, IonItem, IonText, IonButtons, IonLabel } from '@ionic/angular/standalone';
 import { RegistroPage } from '../registro/registro.page';
 import { ModalController } from '@ionic/angular';
-import { addIcons } from "ionicons";
 import { FirebaseService } from 'src/app/services/firebase.service';
 import { RestaurarPage } from '../restaurar/restaurar.page';
 import { AuthService } from 'src/app/services/auth.service';
@@ -62,12 +61,12 @@ export class LoginPage {
   }
 
   // Inicia sesion
-  async onLogin() {
+  onLogin() {
     const email = this.formulario.get("email")?.value
     const contraseña = this.formulario.get("contraseña")?.value
 
     try {
-      await this.firebaseService.login(email, contraseña)
+      this.firebaseService.login(email, contraseña)
       this.authService.toast("Inicio de sesión exitoso!", "success")
       this.authService.login(email)
       this.router.navigate(["/home"])

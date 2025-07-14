@@ -13,9 +13,10 @@ export class AppComponent {
     this.configureStatusBar()
   }
 
+  // Hace que la barra de estado no se mezcle con el header
   async configureStatusBar() {
     await StatusBar.setStyle({ style: Style.Dark }) // o .Dark
-    await StatusBar.setBackgroundColor({ color: '#4d8dff' }) // o el color que combine con tu header
+    await StatusBar.setBackgroundColor({ color: '#7a78e7' }) // o el color que combine con tu header
     await StatusBar.show() // asegurate que se muestre correctamente
   }
 }

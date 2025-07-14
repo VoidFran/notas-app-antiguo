@@ -39,6 +39,7 @@ export class AuthService {
     this.isAuthenticated = true // Simula inicio de sesión
   }
 
+  // Verifica si el usuario inicio sesion
   async isLoggedIn(): Promise<boolean> {
     const usuario = sessionStorage.getItem('usuario')
     return !!usuario
