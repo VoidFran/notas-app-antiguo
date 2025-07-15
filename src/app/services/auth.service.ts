@@ -9,27 +9,24 @@ import { Storage } from '@ionic/storage-angular';
 export class AuthService {
   private _storage: Storage | null = null
   private isAuthenticated = false
-  private auth = getAuth()
+  public auth = getAuth()
   currentUser: User | null = null
 
   constructor(private storage: Storage, private toastController: ToastController) {
-    this.monitorAuthState()
+    
+    onAuthStateChanged(this.auth, (user) => {
+      if (user) {
+        this.currentUser = user; // 👈 recargá los datos del nuevo usuario
+      } else {
+        // Redirigir al login o limpiar datos
+        this.currentUser = null
+      }
+    });
   }
 
   async init() {
     const storage = await this.storage.create()
     this._storage = storage
-  }
-
-  // Busca el usuario autenticado
-  public async monitorAuthState() {
-    onAuthStateChanged(this.auth, (user) => {
-      if (user) {
-        this.currentUser = user
-      } else {
-        this.currentUser = null
-      }
-    })
   }
 
   // Inicia sesion
@@ -49,6 +46,7 @@ export class AuthService {
   async logout() {
     sessionStorage.removeItem('usuario')
     this.isAuthenticated = false // Simula cierre de sesión
+    await this.auth.signOut();
   }
 
   // Muestra un mensaje por pantalla

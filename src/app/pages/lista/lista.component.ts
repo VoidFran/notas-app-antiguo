@@ -19,9 +19,9 @@ export class ListaComponent  implements OnInit {
 
   constructor(private authService: AuthService, private firebaseService: FirebaseService, private modalController: ModalController, private añadir: AñadirPage, private editar: EditarPage, private alertController: AlertController) { }
 
-  async ngOnInit() {
-    await this.buscarNotasId()
-  }
+  ngOnInit() {
+    this.buscarNotasId()
+  }  
   
   // Busca los documentos ligados al usuario
   async buscarNotasId() {

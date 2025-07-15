@@ -61,12 +61,12 @@ export class LoginPage {
   }
 
   // Inicia sesion
-  onLogin() {
+  async onLogin() {
     const email = this.formulario.get("email")?.value
     const contraseña = this.formulario.get("contraseña")?.value
 
     try {
-      this.firebaseService.login(email, contraseña)
+      await this.firebaseService.login(email, contraseña)
       this.authService.toast("Inicio de sesión exitoso!", "success")
       this.authService.login(email)
       this.router.navigate(["/home"])
