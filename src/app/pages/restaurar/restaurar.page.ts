@@ -33,7 +33,7 @@ export class RestaurarPage {
     const email = this.formulario.get("email")?.value
     
     this.firebaseService.restaurarContraseña(email)
-    this.authService.toast("Email enviado!", "success")
+    this.authService.toast("Si el email es correcto se enviara un correo de restauración.", "warning")
     this.eliminarModal()
   }
 

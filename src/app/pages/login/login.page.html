@@ -1,4 +1,8 @@
+
 <ion-content [fullscreen]="true">
+  <!-- Barra de carga solo visible si loading es true -->
+  <ion-progress-bar *ngIf="loading" type="indeterminate" color="primary"></ion-progress-bar>
+
   <div id="container">
     <p color="medium">Inicio de sesión</p>
 
@@ -34,6 +38,7 @@
             <ion-icon slot="icon-only" [name]="isPwd ? 'eye-outline' : 'eye-off-outline'"></ion-icon>
           </ion-button>
         </ion-item>
+
         <ion-item lines="none" class="ion-margin-horizontal">
           <ion-buttons slot="end">
             <ion-button class="hover-effect" (click)="abrirModalRestaurar()">¿Olvidaste tu contraseña?</ion-button>

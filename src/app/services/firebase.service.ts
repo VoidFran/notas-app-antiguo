@@ -21,7 +21,7 @@ export class FirebaseService {
 
   // Obtener un documento específico por ID
   getDocument(collectionName: string, usuarioId: string): Observable<any> {
-    return this.firestore.collection(collectionName).doc(usuarioId).valueChanges();
+    return this.firestore.collection(collectionName).doc(usuarioId).valueChanges()
   }
   
   // Busca los documentos ligado al usuario
@@ -47,8 +47,8 @@ export class FirebaseService {
   }
 
   // inicia sesion
-  async login(email: string, password: string): Promise<any> {
-    return await signInWithEmailAndPassword(this.sign, email, password)
+  login(email: string, password: string): Promise<any> {
+    return signInWithEmailAndPassword(this.sign, email, password)
   }
 
   // Registra un usuario

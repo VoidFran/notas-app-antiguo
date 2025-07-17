@@ -41,7 +41,7 @@ export class RegistroPage {
       this.eliminarModal()
     }
     catch (error) {
-      this.authService.toast("Error de registro. Por favor verifique sus credenciales.", "danger")
+      this.authService.toast("Error de registro. Ya hay un usuario con este correo.", "danger")
     }
   }
 

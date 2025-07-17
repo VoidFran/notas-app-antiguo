@@ -5,6 +5,7 @@ import { FirebaseService } from 'src/app/services/firebase.service';
 import { EditarPage } from '../editar/editar.page';
 import { AuthService } from 'src/app/services/auth.service';
 import { AlertController } from '@ionic/angular';
+import { LoadingController } from '@ionic/angular';
 
 @Injectable({ providedIn: "root"})
 
@@ -17,10 +18,10 @@ import { AlertController } from '@ionic/angular';
 export class ListaComponent  implements OnInit {
   items: any[] = [] // Almacenar la colección
 
-  constructor(private authService: AuthService, private firebaseService: FirebaseService, private modalController: ModalController, private añadir: AñadirPage, private editar: EditarPage, private alertController: AlertController) { }
+  constructor(private authService: AuthService, private firebaseService: FirebaseService, private modalController: ModalController, private añadir: AñadirPage, private editar: EditarPage, private alertController: AlertController, private loadingCtrl: LoadingController) { }
 
   ngOnInit() {
-    this.buscarNotasId()
+    this.cargarDatos()
   }  
   
   // Busca los documentos ligados al usuario
@@ -30,6 +31,24 @@ export class ListaComponent  implements OnInit {
       this.items = data
     })
   }
+
+async cargarDatos() {
+  const loading = await this.loadingCtrl.create({
+    message: 'Cargando datos...',
+  })
+  await loading.present()
+
+  this.firebaseService.getDocumentId('notas', 'id_usuario', this.getUserId()).subscribe({
+    next: (data) => {
+      this.items = data
+      loading.dismiss()
+    },
+    error: (err) => {
+      console.error(err)
+      loading.dismiss()
+    }
+  })
+}
 
   // Edita un documento
   async editarNota(id: any) {
@@ -82,5 +101,18 @@ export class ListaComponent  implements OnInit {
   // Busca el usuario autenticado
   getUserId(): string | null {
     return this.authService.currentUser ? this.authService.currentUser.uid : null
+  }
+
+  // Una vista de carga
+  async presentLoader() {
+    const loading = await this.loadingCtrl.create({
+      message: 'Cargando...',
+      duration: 3000, // opcional, en milisegundos
+      spinner: 'circles', // o 'bubbles', 'dots', 'lines'
+    })
+
+    await loading.present()
+    // Si querés cerrarlo manualmente:
+    // await loading.dismiss();
   }
 }

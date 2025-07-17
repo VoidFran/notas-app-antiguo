@@ -8,6 +8,7 @@ import { Router } from '@angular/router';
   styleUrls: ['home.page.scss'],
 })
 export class HomePage {
+  loading: any[] = [] // Almacenar la colección
 
   constructor(public authService: AuthService, private router: Router) {}
 

@@ -2,7 +2,7 @@ import { NgIf } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { IonHeader, IonToolbar, IonTitle, IonContent, IonInput, IonCard, IonButton, IonIcon, IonItem, IonText, IonButtons, IonLabel } from '@ionic/angular/standalone';
+import { IonHeader, IonToolbar, IonTitle, IonContent, IonInput, IonCard, IonButton, IonIcon, IonItem, IonText, IonButtons, IonLabel, IonProgressBar } from '@ionic/angular/standalone';
 import { RegistroPage } from '../registro/registro.page';
 import { ModalController } from '@ionic/angular';
 import { FirebaseService } from 'src/app/services/firebase.service';
@@ -14,12 +14,13 @@ import { AuthService } from 'src/app/services/auth.service';
   templateUrl: 'login.page.html',
   styleUrls: ['login.page.scss'],
   standalone: true,
-  imports: [IonLabel, IonButtons, IonText, IonItem, IonIcon, IonButton, IonCard, IonInput, IonHeader, IonToolbar, IonTitle, IonContent, ReactiveFormsModule, NgIf],
+  imports: [IonProgressBar, IonLabel, IonButtons, IonText, IonItem, IonIcon, IonButton, IonCard, IonInput, IonHeader, IonToolbar, IonTitle, IonContent, ReactiveFormsModule, NgIf],
 })
 
 export class LoginPage {
   formulario!: FormGroup
-  isPwd = false
+  isPwd = false // cambia el icono si es presionado
+  loading = false // 👈 al iniciar está cargando
   
   constructor(private authService: AuthService, private firebaseService: FirebaseService, private router: Router, private modalController: ModalController, private registro: RegistroPage) {
     this.initForm()
@@ -64,14 +65,17 @@ export class LoginPage {
   async onLogin() {
     const email = this.formulario.get("email")?.value
     const contraseña = this.formulario.get("contraseña")?.value
+    this.loading = true // ✅ ocultar barra al terminar
 
     try {
       await this.firebaseService.login(email, contraseña)
       this.authService.toast("Inicio de sesión exitoso!", "success")
       this.authService.login(email)
       this.router.navigate(["/home"])
+      this.loading = false // ✅ ocultar barra al terminar
     }
     catch (error) {
+      this.loading = false // ✅ ocultar barra al terminar
       this.authService.toast("Error de inicio de sesion. Por favor verifique sus credenciales.", "danger")
     }
   }

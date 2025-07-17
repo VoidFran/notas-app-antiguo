@@ -21,7 +21,7 @@ export class AuthService {
         // Redirigir al login o limpiar datos
         this.currentUser = null
       }
-    });
+    })
   }
 
   async init() {
