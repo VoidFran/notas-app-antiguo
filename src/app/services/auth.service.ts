@@ -14,6 +14,7 @@ export class AuthService {
 
   constructor(private storage: Storage, private toastController: ToastController) {
     
+    // Detecta si cambia el estado del usuario
     onAuthStateChanged(this.auth, (user) => {
       if (user) {
         this.currentUser = user; // 👈 recargá los datos del nuevo usuario

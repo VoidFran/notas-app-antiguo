@@ -6,6 +6,7 @@ import { EditarPage } from '../editar/editar.page';
 import { AuthService } from 'src/app/services/auth.service';
 import { AlertController } from '@ionic/angular';
 import { LoadingController } from '@ionic/angular';
+import { getAuth, onAuthStateChanged, User } from 'firebase/auth';
 
 @Injectable({ providedIn: "root"})
 
@@ -18,10 +19,21 @@ import { LoadingController } from '@ionic/angular';
 export class ListaComponent  implements OnInit {
   items: any[] = [] // Almacenar la colección
 
-  constructor(private authService: AuthService, private firebaseService: FirebaseService, private modalController: ModalController, private añadir: AñadirPage, private editar: EditarPage, private alertController: AlertController, private loadingCtrl: LoadingController) { }
+  constructor(private authService: AuthService, private firebaseService: FirebaseService, private modalController: ModalController, private añadir: AñadirPage, private editar: EditarPage, private alertController: AlertController, private loadingCtrl: LoadingController) {
+    const auth = getAuth();
+
+      onAuthStateChanged(auth, (user: User | null) => {
+      if (user) {
+        this.cargarDatos()
+        // podés redirigir, guardar datos, etc.
+      } else {
+        // redirigir al login, limpiar sesión, etc.
+      }
+    });
+  }
 
   ngOnInit() {
-    this.cargarDatos()
+    //await this.cargarDatos()
   }  
   
   // Busca los documentos ligados al usuario

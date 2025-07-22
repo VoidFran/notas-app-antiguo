@@ -47,8 +47,8 @@ export class FirebaseService {
   }
 
   // inicia sesion
-  login(email: string, password: string): Promise<any> {
-    return signInWithEmailAndPassword(this.sign, email, password)
+  async login(email: string, password: string): Promise<any> {
+    return await signInWithEmailAndPassword(this.sign, email, password)
   }
 
   // Registra un usuario
